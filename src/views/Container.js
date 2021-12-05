@@ -51,42 +51,34 @@ class Container extends React.Component {
         }
     }
 
-    handleChangeOld = () => {
-    }
-
     handleChange = (e, i) => {
-        console.log(e.target.name + " = " + e.target.value)
-        console.log(i)
-        const { roofInvoice } = this.state;
-        let temp = [...this.state.roofInvoice];
-        temp[3] = {...temp[3], qty: '999'}
-        this.setState({ temp });
-    }
-
-    
-
-    // handleChange = (e, i) => {
-    //     this.setState(prevState => ({
-    //         roofInvoice: prevState.roofInvoice.map(
-    //            el => el.key === e.target.name ? {
-    //               ...el,
-    //               qty: e.target.value
-    //            } : el
-    //         )
-    //     }))
-    // }
-
-    updateValueByName(index, name, value) {
-        if (index === -1)
+        const { category } = this.state;
+        const isRoof = (category === 'Gutter') ? false : true ;
+        if (i === -1) {
             console.log("Invalid Index");
-        else
-            this.setState({
-                roofInvoice: [
-                    ...this.state.roofInvoice.slice(0,index),
-                    Object.assign({}, this.state.roofInvoice[index], {[name] : value}),
-                    ...this.state.roofInvoice.slice(index+1)
-                ]
-            });
+        }
+        else {
+            if (isRoof) {
+                this.setState({
+                    roofInvoice: [
+                        ...this.state.roofInvoice.slice(0,i),
+                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value}),
+                        ...this.state.roofInvoice.slice(i+1)
+                    ]
+                });
+            } else {
+                {
+                    this.setState({
+                        gutterInvoice: [
+                            ...this.state.gutterInvoice.slice(0,i),
+                            Object.assign({}, this.state.gutterInvoice[i], {[e.target.name] : e.target.value}),
+                            ...this.state.gutterInvoice.slice(i+1)
+                        ]
+                    });
+                }
+            }
+        }
+        console.log((isRoof) ? this.state.roofInvoice : this.state.gutterInvoice)
     }
 
     render() {
@@ -157,7 +149,7 @@ class Container extends React.Component {
                                                     <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="name" onChange={(e) => {this.handleChange(e, i)}} />}</td>
                                                     <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} /></td>
                                                     <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" onChange={(e) => {this.handleChange(e, i)}} disabled /></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={(isRoof) ? roofInvoice[i].amount : gutterInvoice[i].amount} disabled /></td>
                                                 </tr>
                                             )
                                         })
