@@ -55,6 +55,7 @@ class Container extends React.Component {
     componentDidUpdate() {
 
     }
+ 
 
     
 
@@ -70,10 +71,11 @@ class Container extends React.Component {
                 this.setState({
                     roofInvoice: [
                         ...this.state.roofInvoice.slice(0,i),
-                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value,'amount' :(this.state.roofInvoice[i].qty*this.state.roofInvoice[i].qty)}),
+                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value}),
                         ...this.state.roofInvoice.slice(i+1)
                     ]
                 });
+                
             } else {
                 this.setState({
                     gutterInvoice: [
@@ -160,7 +162,7 @@ class Container extends React.Component {
                                                     <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="name" onChange={(e) => {this.handleChange(e, i)}} />}</td>
                                                     <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} /></td>
                                                     <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} /></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} onClick={(e) => {this.handleChange(e, i)}}/></td>
                                                 </tr>
                                             )
                                         })
@@ -188,6 +190,15 @@ class Container extends React.Component {
 
                     {/* Bill Type */}
                     <h3 className="p-3 my-2 text-secondary bg-light rounded">Invoice</h3>
+
+                    <button type="button" className="btn btn-secondary"  style={{position: 'absolute', right: '10px', top: '12%'}}>
+                    <i className="fa fa-refresh me-3" />
+                    Clear All
+                    </button>
+                    <div className="text-dark p-3 my-2">
+                    <h5 className="m-0">SUB TOTAL</h5>
+                    <h2>LKR.</h2>
+                    </div>
 
                     {/* Advance Input */}
                     <h5 className="mt-5">ADVANCE</h5>
