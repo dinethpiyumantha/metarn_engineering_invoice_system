@@ -1,0 +1,56 @@
+.pdf-content {
+  position: absolute;
+}
+
+.invoice-details {
+  font-size: 12px;
+  position: absolute;
+  width: 300px;
+  left: 555px;
+  top: -70px;
+}
+
+.invoice-details .item {
+  line-height: 0px;
+}
+
+.client-details h5 {
+  color: #dd1e2f;
+  font-size: 13px;
+  line-height: 10px;
+}
+
+.client-details h4 {
+  font-size: 18px;
+  line-height: 10px;
+}
+
+.client-details p {
+  font-size: 13px;
+  line-height: 10px;
+  margin: 10px 0px;
+}
+
+.invoice-table {
+  border: 2px solid #fff;
+}
+
+.invoice-table-heading {
+  background-color: #dd1e2f;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+}
+
+.invoice-table-data {
+  font-size: 13px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+
+.last-td {
+  background-color: #e0e0e0;
+  color: #000;
+}

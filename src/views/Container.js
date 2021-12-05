@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import PDFBuilder from './PDFBuilder/PDFBuilder';
 
 class Container extends React.Component {
     constructor(props) {
@@ -8,6 +9,7 @@ class Container extends React.Component {
         this.state = {
             advancePayment: 0,
             totalBalance: 0,
+            subTotal: 0,
             category: 'Roof',
             billDetails: {
                 name: '',
@@ -19,71 +21,88 @@ class Container extends React.Component {
                 type: '',
             },
             roofInvoice: [
-                {name: 'Roofing Sheets', add: true, qty: null, rate: null, amount: null},
-                {name: 'Bol Nos Cov Roofing', add: true, qty: null, rate: null, amount: null},
-                {name: 'Full Cov Roofing', add: true, qty: null, rate: null, amount: null},
-                {name: 'Tile Roofing', add: true, qty: null, rate: null, amount: null},
-                {name: 'Cladding Sheets', add: true, qty: null, rate: null, amount: null},
-                {name: 'R Cap', add: true, qty: null, rate: null, amount: null},
-                {name: 'Gutter', add: true, qty: null, rate: null, amount: null},
-                {name: 'Cap Flashing', add: true, qty: null, rate: null, amount: null},
-                {name: 'D/Pipe', add: true, qty: null, rate: null, amount: null},
+                {name: 'Roofing Sheets', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Bol Nos Cov Roofing', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Full Cov Roofing', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Tile Roofing', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Cladding Sheets', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'R Cap', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Gutter', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Cap Flashing', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'D/Pipe', add: true, qty: 0, rate: 0, amount: 0},
             ],
             gutterInvoice: [
-                {name: 'Gutter', add: true, qty: null, rate: null, amount: null},
-                {name: 'Barge Flashing', add: true, qty: null, rate: null, amount: null},
-                {name: 'Down Pipe', add: true, qty: null, rate: null, amount: null},
-                {name: 'Down Pipe (12)', add: false, qty: null, rate: null, amount: null},
-                {name: 'Wall Flashing (12)', add: false, qty: null, rate: null, amount: null},
-                {name: 'Wall Flashing (18)', add: false, qty: null, rate: null, amount: null},
-                {name: 'Valance Board (12)', add: false, qty: null, rate: null, amount: null},
-                {name: 'Valance Board (09)', add: false, qty: null, rate: null, amount: null},
-                {name: 'L-Flashing', add: true, qty: null, rate: null, amount: null},
-                {name: 'Cup Flashing', add: true, qty: null, rate: null, amount: null},
-                {name: 'Valley Gutters', add: true, qty: null, rate: null, amount: null},
-                {name: 'U-Gutters', add: true, qty: null, rate: null, amount: null},
-                {name: 'Nozzies', add: false, qty: null, rate: null, amount: null},
-                {name: 'End Caps', add: false, qty: null, rate: null, amount: null},
-                {name: 'Gutter Brackets', add: false, qty: null, rate: null, amount: null},
-                {name: 'Transport', add: false, qty: null, rate: null, amount: null},
-                {name: 'R Cap', add: true, qty: null, rate: null, amount: null},
+                {name: 'Gutter', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Barge Flashing', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Down Pipe', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Down Pipe (12)', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'Wall Flashing (12)', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'Wall Flashing (18)', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'Valance Board (12)', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'Valance Board (09)', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'L-Flashing', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Cup Flashing', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Valley Gutters', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'U-Gutters', add: true, qty: 0, rate: 0, amount: 0},
+                {name: 'Nozzies', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'End Caps', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'Gutter Brackets', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'Transport', add: false, qty: 0, rate: 0, amount: 0},
+                {name: 'R Cap', add: true, qty: 0, rate: 0, amount: 0},
             ]
         }
     }
 
-    componentDidUpdate() {
-
-    }
-
-    updateAmount = (i, isRoof) => {
-        console.log(i, isRoof)
-        if(isRoof) {
-            this.setState({
-                roofInvoice: [
-                    ...this.state.roofInvoice.slice(0,i),
-                    Object.assign({}, this.state.roofInvoice[i], {amount : this.state.roofInvoice[i].qty * this.state.roofInvoice[i].rate}),
-                    ...this.state.roofInvoice.slice(i+1)
-                ]
-            });
+    componentDidMount() {
+        const { category, advancePayment, roofInvoice, gutterInvoice} = this.state;
+        const isRoof = (category === 'Gutter') ? false : true ;
+        var tempTotal = 0;
+        if (isRoof) {
+            roofInvoice.map((item, i) => {
+                tempTotal = tempTotal + item.amount;
+            })
         } else {
-            this.setState({
-                gutterInvoice: [
-                    ...this.state.gutterInvoice.slice(0,i),
-                    Object.assign({}, this.state.gutterInvoice[i], {amount : this.state.gutterInvoice[i].qty * this.state.gutterInvoice[i].rate}),
-                    ...this.state.gutterInvoice.slice(i+1)
-                ]
-            });
+            gutterInvoice.map((item, i) => {
+                tempTotal= tempTotal + item.amount;
+            })
         }
+        tempTotal = tempTotal - advancePayment;
+        console.log(tempTotal)
     }
 
-    handleChange = (e, i) => {
+    componentDidUpdate() {
+        const { category, advancePayment, roofInvoice, gutterInvoice} = this.state;
+        const isRoof = (category === 'Gutter') ? false : true ;
+        var tempTotal = 0;
+        if (isRoof) {
+            roofInvoice.map((item, i) => {
+                tempTotal = tempTotal + item.amount;
+            })
+        } else {
+            gutterInvoice.map((item, i) => {
+                tempTotal= tempTotal + item.amount;
+            })
+        }
+        tempTotal = tempTotal - advancePayment;
+        console.log(tempTotal)
+    }
+
+    handleChangeBill = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
+    handleChange = (e, i, item) => {
         const { category } = this.state;
         const isRoof = (category === 'Gutter') ? false : true ;
         if (i === -1) {
             console.log("Invalid Index");
         }
         else {
+            console.log(item)
             if (isRoof) {
+                console.log(i)
                 this.setState({
                     roofInvoice: [
                         ...this.state.roofInvoice.slice(0,i),
@@ -91,7 +110,16 @@ class Container extends React.Component {
                         ...this.state.roofInvoice.slice(i+1)
                     ]
                 });
+
+                this.setState({
+                    roofInvoice: [
+                        ...this.state.roofInvoice.slice(0,i),
+                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value, 'amount' : (this.state.roofInvoice[i].qty * this.state.roofInvoice[i].rate)}),
+                        ...this.state.roofInvoice.slice(i+1)
+                    ]
+                });
             } else {
+                console.log(i)
                 this.setState({
                     gutterInvoice: [
                         ...this.state.gutterInvoice.slice(0,i),
@@ -99,14 +127,21 @@ class Container extends React.Component {
                         ...this.state.gutterInvoice.slice(i+1)
                     ]
                 });
-                this.updateAmount(i, isRoof)
+
+                this.setState({
+                    gutterInvoice: [
+                        ...this.state.gutterInvoice.slice(0,i),
+                        Object.assign({}, this.state.gutterInvoice[i], {[e.target.name] : e.target.value, 'amount' : (this.state.gutterInvoice[i].qty * this.state.gutterInvoice[i].rate)}),
+                        ...this.state.gutterInvoice.slice(i+1)
+                    ]
+                });
             }
         }
         console.log((isRoof) ? this.state.roofInvoice : this.state.gutterInvoice)
     }
 
     render() {
-        const { category, roofInvoice, gutterInvoice } = this.state;
+        const { category, roofInvoice, gutterInvoice, billDetails, totalBalance, advancePayment, subTotal } = this.state;
         const isRoof = (category === 'Gutter') ? false : true ;
         const invoiceArray = (isRoof) ? roofInvoice : gutterInvoice ;
         return (
@@ -120,24 +155,24 @@ class Container extends React.Component {
                         <div className="col-md-6">
                             {/* Name */}
                             <label className="form-label mt-3">Name (Mr/Ms)</label>
-                            <input type="text" className="form-control" placeholder="Client Name" value={this.state.billDetails.name} />
+                            <input type="text" className="form-control" placeholder="Client Name" name="name" value={this.state.billDetails.name} onChange={this.handleChangeBill} />
                             {/* Address */}
                             <label className="form-label mt-3">Address</label>
-                            <input type="text" className="form-control" placeholder="Client Address" value={this.state.billDetails.address} />
+                            <input type="text" className="form-control" placeholder="Client Address" name="address" value={this.state.billDetails.address} onChange={this.handleChangeBill} />
                             {/* Phone */}
                             <label className="form-label mt-3">Phone</label>
-                            <input type="text" className="form-control" placeholder="Client Phone" value={this.state.billDetails.phone} />
+                            <input type="text" className="form-control" placeholder="Client Phone" name="phone" value={this.state.billDetails.phone} onChange={this.handleChangeBill} />
                         </div>
                         <div className="col-md-6">
                             {/* Bill No */}
                             <label className="form-label mt-3">Serial Number</label>
-                            <input type="text" className="form-control" placeholder="For Invoice or Quotation" value={this.state.billDetails.no} />
+                            <input type="text" className="form-control" placeholder="For Invoice or Quotation" name="no" value={this.state.billDetails.no} onChange={this.handleChangeBill} />
                             {/* Color */}
                             <label className="form-label mt-3">Color</label>
-                            <input type="text" className="form-control" placeholder="Product Color" value={this.state.billDetails.color} />
+                            <input type="text" className="form-control" placeholder="Product Color" name="color" value={this.state.billDetails.color} onChange={this.handleChangeBill} />
                             {/* Date */}
                             <label className="form-label mt-3">Date</label>
-                            <input type="date" className="form-control" value={this.state.billDetails.date} />
+                            <input type="date" className="form-control" name="date" value={this.state.billDetails.date} onChange={this.handleChangeBill} />
                         </div>
                     </div>
 
@@ -170,9 +205,9 @@ class Container extends React.Component {
                                             return(
                                                 <tr key={i}>
                                                     <td>{i+1}</td>
-                                                    <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="name" onChange={(e) => {this.handleChange(e, i)}} />}</td>
-                                                    <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} /></td>
+                                                    <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="name" onChange={(e) => {this.handleChange(e, i, item)}} />}</td>
+                                                    <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i, item)}} /></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i, item)}} /></td>
                                                     <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={(isRoof) ? roofInvoice[i].amount : gutterInvoice[i].amount} disabled /></td>
                                                 </tr>
                                             )
@@ -193,6 +228,18 @@ class Container extends React.Component {
                             }
                             </div>
                         </div>
+                    </div>
+
+                    {/* Preview */}
+                    <div className="bg-light border rounded p-3 m-3 mt-5 row">
+                        <h5 style={{textTransform: 'capitalize'}}>Invoice Preview</h5>
+                        <PDFBuilder  
+                            items={roofInvoice} 
+                            clientDetails={billDetails} 
+                            subTotal={subTotal} 
+                            advance={advancePayment} 
+                            totalAmount={totalBalance}
+                        />
                     </div>
                 </div>
 
