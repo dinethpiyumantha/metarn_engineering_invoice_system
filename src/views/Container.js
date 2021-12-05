@@ -51,6 +51,31 @@ class Container extends React.Component {
         }
     }
 
+    componentDidUpdate() {
+
+    }
+
+    updateAmount = (i, isRoof) => {
+        console.log(i, isRoof)
+        if(isRoof) {
+            this.setState({
+                roofInvoice: [
+                    ...this.state.roofInvoice.slice(0,i),
+                    Object.assign({}, this.state.roofInvoice[i], {amount : this.state.roofInvoice[i].qty * this.state.roofInvoice[i].rate}),
+                    ...this.state.roofInvoice.slice(i+1)
+                ]
+            });
+        } else {
+            this.setState({
+                gutterInvoice: [
+                    ...this.state.gutterInvoice.slice(0,i),
+                    Object.assign({}, this.state.gutterInvoice[i], {amount : this.state.gutterInvoice[i].qty * this.state.gutterInvoice[i].rate}),
+                    ...this.state.gutterInvoice.slice(i+1)
+                ]
+            });
+        }
+    }
+
     handleChange = (e, i) => {
         const { category } = this.state;
         const isRoof = (category === 'Gutter') ? false : true ;
@@ -67,15 +92,14 @@ class Container extends React.Component {
                     ]
                 });
             } else {
-                {
-                    this.setState({
-                        gutterInvoice: [
-                            ...this.state.gutterInvoice.slice(0,i),
-                            Object.assign({}, this.state.gutterInvoice[i], {[e.target.name] : e.target.value}),
-                            ...this.state.gutterInvoice.slice(i+1)
-                        ]
-                    });
-                }
+                this.setState({
+                    gutterInvoice: [
+                        ...this.state.gutterInvoice.slice(0,i),
+                        Object.assign({}, this.state.gutterInvoice[i], {[e.target.name] : e.target.value}),
+                        ...this.state.gutterInvoice.slice(i+1)
+                    ]
+                });
+                this.updateAmount(i, isRoof)
             }
         }
         console.log((isRoof) ? this.state.roofInvoice : this.state.gutterInvoice)
