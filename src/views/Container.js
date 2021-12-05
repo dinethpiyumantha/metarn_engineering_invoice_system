@@ -52,15 +52,60 @@ class Container extends React.Component {
         }
     }
 
-    componentDidUpdate() {
+    
 
+    totalBalance(){          
+            const { category } = this.state;
+        const isRoof = (category === 'Gutter') ? false : true ;
+    
+            if (isRoof) {
+                
+                let tempTotal = 0; 
+                this.state.roofInvoice.map((item,i) => {
+                    if(item.amount!=null){
+                        tempTotal+=parseInt(item.amount);
+                    }
+                    
+                })
+                this.setState({
+                    testamount: tempTotal
+                })
+                
+            } else {
+                let tempTotal = 0; 
+                this.state.gutterInvoice.map((item,i) => {
+                    if(item.amount!=null){
+                        tempTotal+=parseInt(item.amount);
+                    }
+                    
+                })                
+                this.setState({
+                    testamount: tempTotal
+                })
+            }
+            //this.updateAmount(i, isRoof)       
     }
- 
+
+     advanceHandlerChaneng =(e) => {
+        
+            const { category } = this.state;
+            const isRoof = (category === 'Gutter') ? false : true ;
+                if (isRoof) {
+                    this.setState({
+                        totalBalance: (this.state.testamount-e.target.value)
+                    })
+                    
+                    
+                } else {
+                    
+                }
+        
+    }
 
     
 
     handleChange = (e, i) => {
-        console.log(e)
+        this.totalBalance();
         const { category } = this.state;
         const isRoof = (category === 'Gutter') ? false : true ;
         if (i === -1) {
@@ -68,13 +113,16 @@ class Container extends React.Component {
         }
         else {
             if (isRoof) {
+                
                 this.setState({
                     roofInvoice: [
                         ...this.state.roofInvoice.slice(0,i),
                         Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value}),
                         ...this.state.roofInvoice.slice(i+1)
+                        
                     ]
                 });
+                this.totalBalance()
                 
             } else {
                 this.setState({
@@ -162,7 +210,7 @@ class Container extends React.Component {
                                                     <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="name" onChange={(e) => {this.handleChange(e, i)}} />}</td>
                                                     <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} /></td>
                                                     <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} onClick={(e) => {this.handleChange(e, i)}}/></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} ref={(e) => {this.handleChange(e, i)}}/></td>
                                                 </tr>
                                             )
                                         })
@@ -197,7 +245,7 @@ class Container extends React.Component {
                     </button>
                     <div className="text-dark p-3 my-2">
                     <h5 className="m-0">SUB TOTAL</h5>
-                    <h2>LKR.</h2>
+                    <h2>LKR.{this.state.testamount}</h2>
                     </div>
 
                     {/* Advance Input */}
@@ -208,7 +256,7 @@ class Container extends React.Component {
                         className="form-control ms-3"
                         type="text"
                         placeholder="Enter Advance"
-                        value={ this.state.advancePayment }
+                        onChange={(e) => {this.advanceHandlerChaneng(e) }}
                         />
                     </h2>
 
