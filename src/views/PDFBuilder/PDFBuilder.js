@@ -3,9 +3,8 @@ import ReactToPrint from "react-to-print";
 
 import { PDFContent } from './PDFContent';
 
-  const PDFBuilder = ({items, clientDetails, subTotal, advance, totalAmount}) => {
+  const PDFBuilder = ({state}) => {
   const componentRef = React.useRef(null);
-  console.log("pdf bilder = "+clientDetails)
   const onBeforeGetContentResolve = React.useRef(null);
 
   const [loading, setLoading] = React.useState(false);
@@ -78,11 +77,7 @@ import { PDFContent } from './PDFContent';
       {loading && <p className="indicator">Opening printer preferences...</p>}
       <div>
         <PDFContent ref={componentRef} text={text}
-        items={items}
-        clientDetails={clientDetails}
-        subTotal={subTotal}
-        advance={advance}
-        totalAmount={totalAmount}/>
+        state={state} />
       </div>
     </div>
   );
