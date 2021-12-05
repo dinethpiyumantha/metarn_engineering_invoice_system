@@ -115,6 +115,19 @@ class Container extends React.Component {
         const isRoof = (category === 'Gutter') ? false : true ;
         const invoiceArray = (isRoof) ? roofInvoice : gutterInvoice ;
         const details = {...this.state.billDetails};
+
+        // calculate total
+        let balancedTotalAmount = 0
+        if (isRoof) {
+            roofInvoice.map((item, i) => {
+                balancedTotalAmount+=parseFloat(item.amount)
+            })
+        } else {
+            gutterInvoice.map((item, i) => {
+                balancedTotalAmount+=parseFloat(item.amount)
+            })
+        }
+
         return (
             <div className="row m-0 p-0">
                 {/* Content Display         ---------------------------------------------------------------------------- */}
@@ -229,19 +242,19 @@ class Container extends React.Component {
                 <div className="col-md-4 p-3 view-calculation">
 
                     {/* Bill Type */}
-                    <h3 className="p-3 my-2 text-secondary bg-light rounded">Invoice</h3>
+                    <h3 className="p-3 my-2 text-secondary bg-light rounded text-capitalize">{this.state.docType}</h3>
 
                     <button type="button" className="btn btn-secondary"  style={{position: 'absolute', right: '10px', top: '12%'}}>
                     <i className="fa fa-refresh me-3" />
                     Clear All
                     </button>
-                    <div className="text-dark p-3 my-2">
-                    <h5 className="m-0">SUB TOTAL</h5>
-                    <h2>LKR.</h2>
+                    <div className="text-dark mt-4">
+                        <h5 className="m-0">SUB TOTAL</h5>
+                        <h2>LKR. {balancedTotalAmount}</h2>
                     </div>
 
                     {/* Advance Input */}
-                    <h5 className="mt-5">ADVANCE</h5>
+                    {(this.state.docType === 'invoice') && <span><h5 className="mt-5">ADVANCE</h5>
                     <h2 className="d-flex pt-2">
                         <div>LKR.</div>
                         <input
@@ -249,16 +262,18 @@ class Container extends React.Component {
                             type="text"
                             placeholder="Enter Advance"
                             onChange={(e) => this.setState({advancePayment: e.target.value})}
+                            disabled={(this.state.docType === 'invoice') ? false : true}
                         />
-                    </h2>
+                    </h2> 
 
                     {/* payment Disclaimer */}
                     <small className="my-2 lh-sm">If getting an advance payment please put value 0 as in above input field.</small>
-                    
+                    </span> }
+
                     {/* Total Price Preview */}
                     <div className="w-100 my-3 p-3 text-light view-total-price">
                         <h5 className="lh-1">TOTAL BALANCE</h5>
-                        <h1 className="lh-1">LKR. {this.state.totalBalance}</h1>
+                        <h1 className="lh-1">LKR. {balancedTotalAmount - parseFloat(advancePayment)}</h1>
                     </div>
 
                     {/* Buttons */}
