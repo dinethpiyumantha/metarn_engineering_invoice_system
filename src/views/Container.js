@@ -6,6 +6,7 @@ class Container extends React.Component {
         super(props);
 
         this.state = {
+            testamount:0,
             advancePayment: 0,
             totalBalance: 0,
             category: 'Roof',
@@ -55,28 +56,10 @@ class Container extends React.Component {
 
     }
 
-    updateAmount = (i, isRoof) => {
-        console.log(i, isRoof)
-        if(isRoof) {
-            this.setState({
-                roofInvoice: [
-                    ...this.state.roofInvoice.slice(0,i),
-                    Object.assign({}, this.state.roofInvoice[i], {amount : this.state.roofInvoice[i].qty * this.state.roofInvoice[i].rate}),
-                    ...this.state.roofInvoice.slice(i+1)
-                ]
-            });
-        } else {
-            this.setState({
-                gutterInvoice: [
-                    ...this.state.gutterInvoice.slice(0,i),
-                    Object.assign({}, this.state.gutterInvoice[i], {amount : this.state.gutterInvoice[i].qty * this.state.gutterInvoice[i].rate}),
-                    ...this.state.gutterInvoice.slice(i+1)
-                ]
-            });
-        }
-    }
+    
 
     handleChange = (e, i) => {
+        console.log(e)
         const { category } = this.state;
         const isRoof = (category === 'Gutter') ? false : true ;
         if (i === -1) {
@@ -87,7 +70,7 @@ class Container extends React.Component {
                 this.setState({
                     roofInvoice: [
                         ...this.state.roofInvoice.slice(0,i),
-                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value}),
+                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value,'amount' :(this.state.roofInvoice[i].qty*this.state.roofInvoice[i].qty)}),
                         ...this.state.roofInvoice.slice(i+1)
                     ]
                 });
@@ -99,16 +82,20 @@ class Container extends React.Component {
                         ...this.state.gutterInvoice.slice(i+1)
                     ]
                 });
-                this.updateAmount(i, isRoof)
+                
+                
             }
+            //this.updateAmount(i, isRoof)
         }
         console.log((isRoof) ? this.state.roofInvoice : this.state.gutterInvoice)
     }
+    
 
     render() {
         const { category, roofInvoice, gutterInvoice } = this.state;
         const isRoof = (category === 'Gutter') ? false : true ;
         const invoiceArray = (isRoof) ? roofInvoice : gutterInvoice ;
+        
         return (
             <div className="row m-0 p-0">
                 {/* Content Display         ---------------------------------------------------------------------------- */}
@@ -173,7 +160,7 @@ class Container extends React.Component {
                                                     <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="name" onChange={(e) => {this.handleChange(e, i)}} />}</td>
                                                     <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} /></td>
                                                     <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={(isRoof) ? roofInvoice[i].amount : gutterInvoice[i].amount} disabled /></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} /></td>
                                                 </tr>
                                             )
                                         })
