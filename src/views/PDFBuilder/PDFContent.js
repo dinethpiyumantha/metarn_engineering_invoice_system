@@ -17,12 +17,12 @@ export class PDFContent extends React.PureComponent {
     this.setState({ checked: !this.state.checked });
 
   render() {
-    const { advancePayment, totalBalance, subTotal, category, billDetails, roofInvoice, gutterInvoice } = this.props.state;
+    const { advancePayment, totalBalance, subTotal, category, billDetails, roofInvoice, gutterInvoice, docType } = this.props.state;
     let total = 0;
 
     const invoice = { primary: "#ED1A3B", secondary: "#DD1F2F", dark: "#2E3B42", white: "#FFF"};
     const quotation = { primary: "#00a66c", secondary: "#007f52", dark: "#2E3B42", white: "#FFF"};
-    const pdfTheme = quotation;
+    const pdfTheme = (docType === 'invoice') ? invoice : quotation;
 
     return (
       <div>
@@ -41,7 +41,7 @@ export class PDFContent extends React.PureComponent {
             />
           </div>
           <div className="pdf-content" style={{width: '800px', margin: '220px 0px 0px 50px'}}>
-            <div className="invoice-title" style={{color: pdfTheme.primary}}>Quotation</div>
+            <div className="invoice-title" style={{color: pdfTheme.primary}}>{docType}</div>
             <div className="invoice-details">
               <p className="text-white item">Invoice Number - {billDetails.no}</p>
               <p className="text-white item">Invoice Date - </p>
@@ -105,11 +105,11 @@ export class PDFContent extends React.PureComponent {
                     <td className="invoice-table-data invoice-table">Total</td>
                     <td className="invoice-table-data last-td invoice-table">Rs. {total}</td>
                   </tr>
-                  <tr>
+                  { (docType === 'invoice') && <tr>
                     <td className="invoice-table-data invoice-table" colSpan="3"></td>
                     <td className="invoice-table-data invoice-table">Advance Pay</td>
                     <td className="invoice-table-data last-td invoice-table">Rs. {advancePayment}</td>
-                  </tr>
+                  </tr> }
                   <tr>
                     <td className="invoice-table-data invoice-table" colSpan="3"></td>
                     <td className="invoice-table-data invoice-table">Balanced Total</td>

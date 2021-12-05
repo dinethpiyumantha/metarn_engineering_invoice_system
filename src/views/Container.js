@@ -7,6 +7,7 @@ class Container extends React.Component {
         super(props);
 
         this.state = {
+            docType: 'quotation',
             testamount:0,
             advancePayment: 0,
             totalBalance: 0,
@@ -119,6 +120,21 @@ class Container extends React.Component {
                 {/* Content Display         ---------------------------------------------------------------------------- */}
                 <div className="col-md-8 m-0 py-3 px-3 bg-white overflow-auto">
 
+                    {/* Category Selection */}
+                    <div className="my-5">
+                        <h5 className="text-center">CHANGE BILL TYPE</h5>
+                        <div className="d-flex justify-content-center">
+                            <button className="btn btn-lg btn-gradiant-yellow-new text-dark m-2 text-capitalize" 
+                                onClick={() => {
+                                    this.setState({ docType: (this.state.docType === 'invoice') ? 'quotation' : 'invoice' })
+                                }} 
+                            >
+                                <small style={{fontSize: '10px'}}>Change document type</small>
+                                <div>{this.state.docType}</div>
+                            </button>
+                        </div>
+                    </div>
+
                     {/* Client's/Invoice Details */}
                     <div className="bg-light rounded p-3 m-3 border row">
                         <h5>DOCUMENT DETAILS</h5>
@@ -201,7 +217,7 @@ class Container extends React.Component {
                     </div>
 
                     {/* Preview */}
-                    <div className="bg-light border rounded p-3 m-3 mt-5 row">
+                    <div className="p-3 m-3 mt-5 row">
                         <h5 style={{textTransform: 'capitalize'}}>Invoice Preview</h5>
                         <PDFBuilder  
                             state={this.state}
