@@ -76,6 +76,9 @@ class Container extends React.Component {
     
 
     handleChange = (e, i) => {
+        if (e.keyCode === 13) {
+            console.log("Enter")
+        }
         console.log(e)
         const { category } = this.state;
         const isRoof = (category === 'Gutter') ? false : true ;
@@ -89,7 +92,7 @@ class Container extends React.Component {
                 this.setState({
                     roofInvoice: [
                         ...this.state.roofInvoice.slice(0,i),
-                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value}),
+                        Object.assign({}, this.state.roofInvoice[i], {[e.target.name] : e.target.value }),
                         ...this.state.roofInvoice.slice(i+1)
                     ]
                 });
@@ -204,10 +207,29 @@ class Container extends React.Component {
                                             return(
                                                 <tr key={i}>
                                                     <td>{i+1}</td>
-                                                    <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="addVal" onChange={(e) => {this.handleChange(e, i)}} />}</td>
-                                                    <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} onClick={(e) => {this.handleChange(e, i)}}/></td>
+                                                    <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input key={i} type="text" className="form-control ms-3 w-25" name="addVal" onChange={(e) => {this.handleChange(e, i)}} />}</td>
+                                                    <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} 
+                                                    onKeyPress={event => {
+                                                        if (event.key === 'Tab') {
+                                                            const nextfield = document.querySelector(
+                                                                `input[name=rate]`
+                                                              );
+                                                              nextfield.focus();
+
+                                                        }
+                                                      }}/></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} 
+                                                    onKeyPress={event => {
+                                                        if (event.key === 'Tab') {
+                                                            const nextfield = document.querySelector(
+                                                                `input[name=amount]`
+                                                              );
+                                                              nextfield.focus();
+
+                                                        }
+                                                      }}/></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} onFocus={(e) => {this.handleChange(e, i)}}
+                                                    /></td>
                                                 </tr>
                                             )
                                         })
