@@ -124,6 +124,12 @@ export class PDFContent extends React.PureComponent {
                 <br />
                 <small className="text-center">(This quotation is valid for 14 days only.)</small>
             </div>
+            <div className="row border p-1 mt-2">
+              <ul className="p-0 mx-2 my-1" style={{listStyle: "none"}}>
+                <li className="tiny p-0">වෙනස් වන දිග ප්‍රමාණයන්ට අනුව මිල ගණන් වෙනස් වන බව කරුණාවෙන් සලකන්න.</li>
+                <li className="tiny p-0">ඔබ විසින් පීලි සඳහා අවශ්‍ය දම්වැල් සපයා ගත යුතුය.</li>
+              </ul>
+            </div>
             <div className="row my-1 border-top border-5 pt-1">
                 <div className="col-6">
                 <table>
@@ -155,7 +161,7 @@ export class PDFContent extends React.PureComponent {
                         <td>
                           <div className="tiny"><small>076 55 65 600</small></div>
                           <div className="tiny"><small>076 80 70 999</small></div>
-                          <div className="tiny"><small>076 41 05 656</small></div>
+                          <div className="tiny"><small>011 34 02 744</small></div>
                         </td>
                       </tr>
                       <tr>
@@ -169,12 +175,6 @@ export class PDFContent extends React.PureComponent {
                 </div>
                 <div>
                 </div>
-            </div>
-            <div className="row border p-1 mt-2">
-              <ul className="p-0 mx-2 my-1" style={{listStyle: "none"}}>
-                <li className="tiny p-0">වෙනස් වන දිග ප්‍රමාණයන්ට අනුව මිල ගණන් වෙනස් වන බව කරුණාවෙන් සලකන්න.</li>
-                <li className="tiny p-0">ඔබ විසින් පීලි සඳහා අවශ්‍ය දම්වැල් සපයා ගත යුතුය.</li>
-              </ul>
             </div>
             <div className="slogan">
                 වැහි පීලි කලාවේ සොඳුරු නිමාව
