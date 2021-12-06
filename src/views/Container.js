@@ -203,9 +203,25 @@ class Container extends React.Component {
                                                 <tr key={i}>
                                                     <td>{i+1}</td>
                                                     <td className={item.add ? 'd-flex' : ''}>{item.name} { item.add && <input type="text" className="form-control ms-3 w-25" name="addVal" onChange={(e) => {this.handleChange(e, i)}} />}</td>
-                                                    <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} /></td>
-                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} onClick={(e) => {this.handleChange(e, i)}}/></td>
+                                                    <td style={{width: '15%'}} ><input type="text" className="form-control" placeholder="Quantity" name="qty" onChange={(e) => {this.handleChange(e, i)}} onKeyPress={event => {
+                                                        if (event.key === 'Tab') {
+                                                            const nextfield = document.querySelector(
+                                                                `input[name=rate]`
+                                                              );
+                                                              nextfield.focus();
+
+                                                        }
+                                                      }} /></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Unit Price" name="rate"  onChange={(e) => {this.handleChange(e, i)}} onKeyPress={event => {
+                                                        if (event.key === 'Tab') {
+                                                            const nextfield = document.querySelector(
+                                                                `input[name=amount]`
+                                                              );
+                                                              nextfield.focus();
+
+                                                        }
+                                                      }}/></td>
+                                                    <td style={{width: '20%'}} ><input type="text" className="form-control" placeholder="Amount" name="amount" value={item.qty*item.rate} onFocus={(e) => {this.handleChange(e, i)}}/></td>
                                                 </tr>
                                             )
                                         })
