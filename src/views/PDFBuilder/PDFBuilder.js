@@ -56,7 +56,7 @@ import { PDFContent } from './PDFContent';
 
     // Good
     return (
-      <button type="button" className="w-100 btn btn-dark">
+      <button type="button" className="w-100 btn btn-gradiant-yellow text-white">
         <i className="fa fa-print me-3" />
         Print
       </button>
@@ -75,7 +75,7 @@ import { PDFContent } from './PDFContent';
         trigger={reactToPrintTrigger}
       />
       {loading && <p className="indicator">Opening printer preferences...</p>}
-      <div>
+      <div className="my-3">
         <PDFContent ref={componentRef} text={text}
         state={state} />
       </div>

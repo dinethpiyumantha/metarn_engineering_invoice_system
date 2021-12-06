@@ -82,9 +82,9 @@ export class PDFContent extends React.PureComponent {
                     <tr className="tr-striped">
                       <td key={i} className="invoice-table-data invoice-table">{i+1}</td>
                       <td key={i} className="invoice-table-data invoice-table">{item.name} { item.addVal && '(' + item.addVal + ')' }</td>
-                      <td key={i} className="invoice-table-data invoice-table">{item.qty}</td>
-                      <td key={i} className="invoice-table-data invoice-table">{item.rate}</td>
-                      <td key={i} className="invoice-table-data invoice-table">{item.amount}</td>
+                      <td key={i} className="invoice-table-data invoice-table text-end">{item.qty}</td>
+                      <td key={i} className="invoice-table-data invoice-table text-end">{item.rate}</td>
+                      <td key={i} className="invoice-table-data invoice-table text-end">{item.amount}</td>
                     </tr>
                     )
                   })
@@ -104,17 +104,17 @@ export class PDFContent extends React.PureComponent {
                   <tr>
                     <td className="invoice-table-data invoice-table" colSpan="3"></td>
                     <td className="invoice-table-data invoice-table">Total</td>
-                    <td className="invoice-table-data last-td invoice-table">Rs. {total}</td>
+                    <td className="invoice-table-data last-td invoice-table text-end">Rs. {total}</td>
                   </tr>
                   { (docType === 'invoice') && <tr>
                     <td className="invoice-table-data invoice-table" colSpan="3"></td>
                     <td className="invoice-table-data invoice-table">Advance Pay</td>
-                    <td className="invoice-table-data last-td invoice-table">Rs. {advancePayment}</td>
+                    <td className="invoice-table-data last-td invoice-table text-end">Rs. {advancePayment}</td>
                   </tr> }
                   <tr>
                     <td className="invoice-table-data invoice-table" colSpan="3"></td>
                     <td className="invoice-table-data invoice-table">Balanced Total</td>
-                    <td className="invoice-table-data last-td invoice-table" style={{background: pdfTheme.primary, color: '#fff'}}>Rs. {total-parseFloat(advancePayment)}</td>
+                    <td className="invoice-table-data last-td invoice-table text-end" style={{background: pdfTheme.primary, color: '#fff'}}>Rs. {total-parseFloat(advancePayment)}</td>
                   </tr>
                 </tbody>
               </table>

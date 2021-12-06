@@ -277,7 +277,7 @@ class Container extends React.Component {
                     {/* Buttons */}
                     <div className="border-top mt-4 gap-3 d-grid ">
                         <button type="button" className="btn btn-dark">Export</button>
-                        <button type="button" className="btn btn-dark">Print</button>
+                        <button type="button" className="btn btn-dark" style={{display: 'none'}}>Print</button>
                     </div>
                 </div>
             </div>
