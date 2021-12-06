@@ -1,5 +1,6 @@
 import * as React from "react";
-import InvoiceBG from "./InvoiceBG";
+import moment from 'moment';
+// import InvoiceBG from "./InvoiceBG";
 import Background from "./Background";
 import "./styles.css";
 
@@ -19,6 +20,8 @@ export class PDFContent extends React.PureComponent {
   render() {
     const { advancePayment, totalBalance, subTotal, category, billDetails, roofInvoice, gutterInvoice, docType } = this.props.state;
     let total = 0;
+    const isRoof = (category === 'Gutter') ? false : true ;
+    const invoiceArray = (isRoof) ? roofInvoice : gutterInvoice ;
 
     const invoice = { primary: "#ED1A3B", secondary: "#DD1F2F", dark: "#2E3B42", white: "#FFF"};
     const quotation = { primary: "#00a66c", secondary: "#007f52", dark: "#2E3B42", white: "#FFF"};
@@ -44,11 +47,9 @@ export class PDFContent extends React.PureComponent {
             <div className="invoice-title" style={{color: pdfTheme.primary}}>{docType}</div>
             <div className="invoice-details">
               <p className="text-white item">Invoice Number - {billDetails.no}</p>
-              <p className="text-white item">Invoice Date - </p>
-              <p className="text-white item">Invoice time - </p>
+              <p className="text-white item">Invoice Date - {moment().format('LL')}</p>
+              <p className="text-white item">Invoice time - {moment().format('LTS')}</p>
             </div>
-            <br />
-            <br />
             <br />
             <div className="row d-flex">
               <div className="col-8 client-details">
@@ -75,10 +76,10 @@ export class PDFContent extends React.PureComponent {
                 </thead>
                 <tbody>
                 {
-                  roofInvoice.map((item, i) => {
+                  invoiceArray.map((item, i) => {
                     total+=parseFloat(item.amount);
                     return (
-                    <tr>
+                    <tr className="tr-striped">
                       <td key={i} className="invoice-table-data invoice-table">{i+1}</td>
                       <td key={i} className="invoice-table-data invoice-table">{item.name} { item.addVal && '(' + item.addVal + ')' }</td>
                       <td key={i} className="invoice-table-data invoice-table">{item.qty}</td>
@@ -117,6 +118,66 @@ export class PDFContent extends React.PureComponent {
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div className="row">
+                <h6 className="col-3 border-top">Signature</h6>
+                <br />
+                <small className="text-center">(This quotation is valid for 14 days only.)</small>
+            </div>
+            <div className="row my-1 border-top border-5 pt-1">
+                <div className="col-6">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td rowSpan="2">
+                        <i class="fas fa-map-marker-alt m-2" style={{color: pdfTheme.primary}}></i>
+                      </td>
+                      <td>
+                        <div><b>Office</b></div>
+                        <div className="tiny"><small>Colombo Road, Kurana, Negambo</small></div>
+                      </td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <div><b>Branch Offices</b></div>
+                        <div className="border-bottom tiny"><small>273/3, "Big City" Peellawaththe, Minuwangoda.</small></div>
+                        <div className="tiny"><small>1/4/B/12, 2<sup>nd</sup> Stage, Green wood Park, Loluwagoda, Mirigama</small></div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+                <div className="col-6">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td><i class="fa fa-phone m-2" style={{color: pdfTheme.primary}}></i></td>
+                        <td>
+                          <div className="tiny"><small>076 55 65 600</small></div>
+                          <div className="tiny"><small>076 80 70 999</small></div>
+                          <div className="tiny"><small>076 41 05 656</small></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-envelope m-2" style={{color: pdfTheme.primary}}></i></td>
+                        <td>
+                          <div className="tiny"><small>metarnengineering@gmail.com</small></div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div className="row border p-1 mt-2">
+              <ul className="p-0 mx-2 my-1" style={{listStyle: "none"}}>
+                <li className="tiny p-0">වෙනස් වන දිග ප්‍රමාණයන්ට අනුව මිල ගණන් වෙනස් වන බව කරුණාවෙන් සලකන්න.</li>
+                <li className="tiny p-0">ඔබ විසින් පීලි සඳහා අවශ්‍ය දම්වැල් සපයා ගත යුතුය.</li>
+              </ul>
+            </div>
+            <div className="slogan">
+                වැහි පීලි කලාවේ සොඳුරු නිමාව
             </div>
           </div>
         </div>

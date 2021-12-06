@@ -60,6 +60,10 @@
   box-sizing: border-box;
 }
 
+.tr-striped:nth-child(even) {
+  background-color: #ececec;
+}
+
 .last-td {
   background-color: #e0e0e0;
   color: #000;

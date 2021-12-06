@@ -103,8 +103,6 @@ class Container extends React.Component {
                         ...this.state.gutterInvoice.slice(i+1)
                     ]
                 });
-                
-                
             }
         }
         console.log((isRoof) ? this.state.roofInvoice : this.state.gutterInvoice)
