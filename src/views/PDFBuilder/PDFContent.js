@@ -23,8 +23,8 @@ export class PDFContent extends React.PureComponent {
     const isRoof = (category === 'Gutter') ? false : true ;
     const invoiceArray = (isRoof) ? roofInvoice : gutterInvoice ;
 
-    const invoice = { primary: "#ED1A3B", secondary: "#DD1F2F", dark: "#2E3B42", white: "#FFF"};
-    const quotation = { primary: "#00a66c", secondary: "#007f52", dark: "#2E3B42", white: "#FFF"};
+    const invoice = { primary: "#ED1A3B", secondary: "#DD1F2F", dark: "#2E3B42", white: "#FFF", gray: "#a0a0a055"};
+    const quotation = { primary: "#00a66c", secondary: "#007f52", dark: "#2E3B42", white: "#FFF", gray: "#a0a0a055"};
     const pdfTheme = (docType === 'invoice') ? invoice : quotation;
 
     return (
@@ -45,10 +45,10 @@ export class PDFContent extends React.PureComponent {
           </div>
           <div className="pdf-content" style={{width: '800px', margin: '220px 0px 0px 50px'}}>
             <div className="invoice-title" style={{color: pdfTheme.primary}}>{docType}</div>
-            <div className="invoice-details">
-              <p className="text-white item">Invoice Number - {billDetails.no}</p>
-              <p className="text-white item">Invoice Date - {moment().format('LL')}</p>
-              <p className="text-white item">Invoice time - {moment().format('LTS')}</p>
+            <div className="invoice-details"  style={{color: pdfTheme.dark}}>
+              <p className="item">Invoice Number - {billDetails.no}</p>
+              <p className="item">Invoice Date - {moment().format('LL')}</p>
+              <p className="item">Invoice time - {moment().format('LTS')}</p>
             </div>
             <br />
             <div className="row d-flex">
@@ -136,7 +136,7 @@ export class PDFContent extends React.PureComponent {
                   <tbody>
                     <tr>
                       <td rowSpan="2">
-                        <i class="fas fa-map-marker-alt m-2" style={{color: pdfTheme.primary}}></i>
+                        <i className="fas fa-map-marker-alt m-2" style={{color: pdfTheme.primary}}></i>
                       </td>
                       <td>
                         <div><b>Office</b></div>
@@ -157,15 +157,15 @@ export class PDFContent extends React.PureComponent {
                   <table>
                     <tbody>
                       <tr>
-                        <td><i class="fa fa-phone m-2" style={{color: pdfTheme.primary}}></i></td>
+                        <td><i className="fa fa-phone m-2" style={{color: pdfTheme.primary}}></i></td>
                         <td>
                           <div className="tiny"><small>076 55 65 600</small></div>
-                          <div className="tiny"><small>076 80 70 999</small></div>
+                          <div className="tiny"><small>076 56 56 007</small></div>
                           <div className="tiny"><small>011 34 02 744</small></div>
                         </td>
                       </tr>
                       <tr>
-                        <td><i class="fa fa-envelope m-2" style={{color: pdfTheme.primary}}></i></td>
+                        <td><i className="fa fa-envelope m-2" style={{color: pdfTheme.primary}}></i></td>
                         <td>
                           <div className="tiny"><small>metarnengineering@gmail.com</small></div>
                         </td>
@@ -176,9 +176,7 @@ export class PDFContent extends React.PureComponent {
                 <div>
                 </div>
             </div>
-            <div className="slogan">
-                වැහි පීලි කලාවේ සොඳුරු නිමාව
-            </div>
+            <div className="slogan">වැහි පීලි කලාවේ සොඳුරු නිමාව</div>
           </div>
         </div>
       </div>

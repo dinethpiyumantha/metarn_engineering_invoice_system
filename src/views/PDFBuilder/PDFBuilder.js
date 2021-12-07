@@ -75,7 +75,7 @@ import { PDFContent } from './PDFContent';
         trigger={reactToPrintTrigger}
       />
       {loading && <p className="indicator">Opening printer preferences...</p>}
-      <div className="my-3">
+      <div className="my-3 mx-0 px-0" style={{transform: 'scale(0.87)', position: 'absolute', height: '1350px'}}>
         <PDFContent ref={componentRef} text={text}
         state={state} />
       </div>

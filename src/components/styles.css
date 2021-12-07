@@ -1,15 +1,18 @@
 /* Navigation */
 .nav {
     height: 80px;
+    -webkit-box-shadow: 0px 5px 16px -9px #000000; 
+    box-shadow: 0px 5px 16px -9px #000000;
     background: #0f0c29;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.nav-left {
+.nav-left-old {
     background: #FDC830;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #F37335, #FDC830);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #F37335, #FDC830); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+.nav-left {}
 .nav-middle {}
 .nav-right {}
 
@@ -49,16 +52,6 @@
 
 .tiny {
     font-size: 13px;
-}
-
-.slogan {
-    position: absolute;
-    font-weight: bolder;
-    color: #fff;
-    top: 1010px;
-    left: 500px;
-    font-size: 19px;
-    z-index: 1000;
 }
 
 .btn-light-transparent {
