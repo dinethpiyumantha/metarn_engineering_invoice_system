@@ -1,4 +1,18 @@
 {
+  "build": {
+    "appId": "com.metarn_engineering_invoice_system.app",
+    "productName": "MetarnEngineering",
+    
+    "directories": {
+      
+      "buildResources": "assets"
+      
+    },
+    "extraResources": [
+      "./assets/**"
+    ]
+  },
+  
   "name": "metarn_eng",
   "version": "0.1.0",
   "private": true,

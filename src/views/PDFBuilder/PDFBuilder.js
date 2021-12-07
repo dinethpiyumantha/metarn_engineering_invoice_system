@@ -79,6 +79,10 @@ import { PDFContent } from './PDFContent';
         <PDFContent ref={componentRef} text={text}
         state={state} />
       </div>
+      <div className="my-3">
+        <PDFContent ref={componentRef} text={text}
+        state={state} />
+      </div>
     </div>
   );
 };

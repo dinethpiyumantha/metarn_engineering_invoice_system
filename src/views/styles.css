@@ -7,7 +7,9 @@
 }
 
 /* Calulation preview */
-.view-calculation {}
+.view-calculation {
+    margin-top: 740px;
+}
 .view-total-price {
     background: #6441A5;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #2a0845, #6441A5);  /* Chrome 10-25, Safari 5.1-6 */

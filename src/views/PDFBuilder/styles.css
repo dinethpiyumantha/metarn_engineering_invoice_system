@@ -1,5 +1,6 @@
 .pdf-content {
   position: absolute;
+  overflow: "scroll"
 }
 
 .invoice-title {
@@ -67,4 +68,14 @@
 .last-td {
   background-color: #e0e0e0;
   color: #000;
+}
+@media print {
+  html, body {
+    height: initial;
+    overflow: initial;
+  }
+}
+
+@page {
+  size: auto;
 }

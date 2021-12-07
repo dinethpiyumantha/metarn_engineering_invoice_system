@@ -253,15 +253,12 @@ class Container extends React.Component {
                 </div>
 
                 {/* Calculation Priview     ---------------------------------------------------------------------------- */}
-                <div className="col-md-4 p-3 view-calculation">
+                <div className="col-md-4 p-3 mt-10 view-calculation">
 
                     {/* Bill Type */}
-                    <h3 className="p-3 my-2 text-secondary bg-light rounded text-capitalize">{this.state.docType}</h3>
+                    <h3 className="p-3 my-2 text-secondary bg-light rounded text-capitalize" >{this.state.docType}</h3>
 
-                    <button type="button" className="btn btn-secondary"  style={{position: 'absolute', right: '10px', top: '12%'}}>
-                    <i className="fa fa-refresh me-3" />
-                    Clear All
-                    </button>
+                    
                     <div className="text-dark mt-4">
                         <h5 className="m-0">SUB TOTAL</h5>
                         <h2>LKR. {balancedTotalAmount}</h2>
