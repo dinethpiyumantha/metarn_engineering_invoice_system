@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <div className="row m-0 p-0">
-        <div className="col-md-12">
+        <div className="col-md-12" style={{position: 'fixed', left: '0px', top: '0px', zIndex: '2000'}}>
           <Navigation />
         </div>
         <div className="col-md-12 p-0">

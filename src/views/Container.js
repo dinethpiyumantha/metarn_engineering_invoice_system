@@ -32,6 +32,7 @@ class Container extends React.Component {
                 {name: 'Gutter', add: true, addVal: '', qty: 0, rate: 0, amount: 0},
                 {name: 'Cap Flashing', add: true, addVal: '', qty: 0, rate: 0, amount: 0},
                 {name: 'D/Pipe', add: true, addVal: '', qty: 0, rate: 0, amount: 0},
+                {name: 'Transport', add: false, addVal: '', qty: 0, rate: 0, amount: 0},
             ],
             gutterInvoice: [
                 {name: 'Gutter', add: true, addVal: '', qty: 0, rate: 0, amount: 0},
@@ -49,8 +50,8 @@ class Container extends React.Component {
                 {name: 'Nozzies', add: false, addVal: '', qty: 0, rate: 0, amount: 0},
                 {name: 'End Caps', add: false, addVal: '', qty: 0, rate: 0, amount: 0},
                 {name: 'Gutter Brackets', add: false, addVal: '', qty: 0, rate: 0, amount: 0},
-                {name: 'Transport', add: false, addVal: '', qty: 0, rate: 0, amount: 0},
                 {name: 'R Cap', add: true, addVal: '', qty: 0, rate: 0, amount: 0},
+                {name: 'Transport', add: false, addVal: '', qty: 0, rate: 0, amount: 0},
             ]
         }
     }
@@ -130,7 +131,9 @@ class Container extends React.Component {
             <div className="row m-0 p-0">
                 {/* Content Display         ---------------------------------------------------------------------------- */}
                 <div className="col-md-8 m-0 py-3 px-3 bg-white overflow-auto">
-
+                    <br />
+                    <br />
+                    <div>
                     {/* Category Selection */}
                     <div className="my-5">
                         <h5 className="text-center">CHANGE BILL TYPE</h5>
@@ -140,7 +143,7 @@ class Container extends React.Component {
                                     this.setState({ docType: (this.state.docType === 'invoice') ? 'quotation' : 'invoice' })
                                 }} 
                             >
-                                <small style={{fontSize: '10px'}}>Change document type</small>
+                                {/*<small style={{fontSize: '10px'}}>Change document type</small>*/}
                                 <div>{this.state.docType}</div>
                             </button>
                         </div>
@@ -250,15 +253,14 @@ class Container extends React.Component {
                             state={this.state}
                         />
                     </div>
+                    </div>
                 </div>
 
                 {/* Calculation Priview     ---------------------------------------------------------------------------- */}
-                <div className="col-md-4 p-3 mt-10 view-calculation">
+                <div className="col-md-4 p-3 view-calculation bg-white"  style={{position: 'fixed', top: '80px', right: '0px', height: 'calc(100vh - 80px)', overflow: 'hidden'}}>
 
                     {/* Bill Type */}
-                    <h3 className="p-3 my-2 text-secondary bg-light rounded text-capitalize" >{this.state.docType}</h3>
-
-                    
+                    <h3 className="p-3 my-2 text-secondary bg-light rounded text-capitalize"><i class="fas fa-calculator me-2"></i> {this.state.docType}</h3>
                     <div className="text-dark mt-4">
                         <h5 className="m-0">SUB TOTAL</h5>
                         <h2>LKR. {balancedTotalAmount}</h2>
@@ -289,8 +291,11 @@ class Container extends React.Component {
 
                     {/* Buttons */}
                     <div className="border-top mt-4 gap-3 d-grid ">
-                        <button type="button" className="btn btn-dark">Export</button>
+                        <button type="button" className="btn btn-dark" disabled>Export</button>
                         <button type="button" className="btn btn-dark" style={{display: 'none'}}>Print</button>
+                    </div>
+                    <div style={{width: '300px'}}>
+                        <small>Copyright &copy; 2022 Metarn Engineering. <b>Developed by Dineth & Thisara Dev.</b></small>
                     </div>
                 </div>
             </div>

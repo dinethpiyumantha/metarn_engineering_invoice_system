@@ -136,7 +136,7 @@ export class PDFContent extends React.PureComponent {
                   <tbody>
                     <tr>
                       <td rowSpan="2">
-                        <i class="fas fa-map-marker-alt m-2" style={{color: pdfTheme.primary}}></i>
+                        <i class="fa fa-building m-2" style={{color: pdfTheme.primary}}></i>
                       </td>
                       <td>
                         <div><b>Office</b></div>

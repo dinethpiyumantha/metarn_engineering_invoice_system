@@ -69,13 +69,13 @@
   background-color: #e0e0e0;
   color: #000;
 }
-@media print {
-  html, body {
-    height: initial;
-    overflow: initial;
-  }
-}
 
-@page {
-  size: auto;
+.slogan {
+  position: absolute;
+  font-weight: bolder;
+  color: #fff;
+  top: 1010px;
+  left: 420px;
+  font-size: 19px;
+  z-index: 1000;
 }
