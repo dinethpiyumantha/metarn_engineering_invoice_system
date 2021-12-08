@@ -260,7 +260,7 @@ class Container extends React.Component {
                 <div className="col-md-4 p-3 view-calculation bg-white"  style={{position: 'fixed', top: '80px', right: '0px', height: 'calc(100vh - 80px)', overflow: 'hidden'}}>
 
                     {/* Bill Type */}
-                    <h3 className="p-3 my-2 text-secondary bg-light rounded text-capitalize"><i class="fas fa-calculator me-2"></i> {this.state.docType}</h3>
+                    <h3 className="p-3 my-2 text-secondary bg-light rounded text-capitalize"><i className="fa fa-calculator me-2"></i> {this.state.docType}</h3>
                     <div className="text-dark mt-4">
                         <h5 className="m-0">SUB TOTAL</h5>
                         <h2>LKR. {balancedTotalAmount}</h2>
